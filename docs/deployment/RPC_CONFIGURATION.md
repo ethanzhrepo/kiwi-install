@@ -548,22 +548,6 @@ RPC配置位于：`.config/evm_chains.json`
 ]
 ```
 
-### 环境变量配置
-
-为了安全，建议将敏感信息通过环境变量传入：
-
-```bash
-# .env文件
-ALCHEMY_API_KEY=your-alchemy-api-key
-INFURA_PROJECT_ID=your-infura-project-id
-QUICKNODE_ENDPOINT=your-quicknode-endpoint
-
-ETHERSCAN_API_KEY=your-etherscan-api-key
-BSCSCAN_API_KEY=your-bscscan-api-key
-POLYGONSCAN_API_KEY=your-polygonscan-api-key
-BASESCAN_API_KEY=your-basescan-api-key
-ARBISCAN_API_KEY=your-arbiscan-api-key
-```
 
 ### 配置验证
 

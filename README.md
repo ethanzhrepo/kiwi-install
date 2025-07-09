@@ -259,6 +259,116 @@ yarn build
 
 ---
 
+## Step 4: Address Pool Initialization
+
+After the server is running, you need to initialize the address pool with deposit addresses for receiving payments.
+
+### 4.1 Understanding Address Pool
+
+The address pool is a collection of cryptocurrency addresses that the system uses to receive payments from customers. Each address is securely generated and stored with encrypted private keys.
+
+### 4.2 Generate Address Pool
+
+Use the CLI to generate a batch of deposit addresses:
+
+```bash
+# Generate 100 EVM addresses using filesystem provider
+./kiwi-cli wallet add -n 100 -t EVM --provider fs
+
+# Generate with custom batch name for organization
+./kiwi-cli wallet add -n 200 -t EVM --provider fs --key-name "batch_001"
+
+# Generate using different key storage providers
+./kiwi-cli wallet add -n 100 -t EVM --provider google     # Google Drive
+./kiwi-cli wallet add -n 100 -t EVM --provider dropbox    # Dropbox
+./kiwi-cli wallet add -n 100 -t EVM --provider keychain   # macOS Keychain
+```
+
+**Important Security Notes:**
+- Private keys are encrypted with AES and stored securely
+- Each AES key is encrypted with the admin RSA public key
+- Keys are never stored in plain text
+- The admin RSA private key is required to decrypt and use these addresses
+
+### 4.3 Verify Address Pool
+
+Check the status of your address pool:
+
+```bash
+# View detailed statistics
+./kiwi-cli wallet stat
+
+# Query specific addresses
+./kiwi-cli wallet get -a 0x1234...
+
+# List all batches
+./kiwi-cli wallet batch list
+```
+
+### 4.4 Address Pool Management
+
+#### Enable/Disable Individual Addresses
+
+```bash
+# Disable a specific address (won't be used for new payments)
+./kiwi-cli wallet disable -a 0x1234...
+
+# Re-enable a disabled address
+./kiwi-cli wallet enable -a 0x1234...
+```
+
+#### Batch Management
+
+```bash
+# Enable all addresses in a batch
+./kiwi-cli wallet enable-batch -b batch_001
+
+# Disable all addresses in a batch
+./kiwi-cli wallet disable-batch -b batch_001
+```
+
+### 4.5 Address Pool Best Practices
+
+1. **Initial Pool Size**: Start with 100-500 addresses depending on expected transaction volume
+2. **Batch Organization**: Use meaningful batch names for different purposes or time periods
+3. **Regular Monitoring**: Check address pool statistics regularly
+4. **Backup Strategy**: Ensure admin RSA private key is backed up securely
+5. **Capacity Planning**: Add more addresses before the pool runs low
+
+### 4.6 Storage Provider Options
+
+The CLI supports multiple storage backends for managing keys:
+
+- **`fs`**: Local file system (default, good for development)
+- **`google`**: Google Drive (recommended for production)
+- **`dropbox`**: Dropbox storage
+- **`keychain`**: macOS Keychain (macOS only)
+
+Example with Google Drive:
+```bash
+# First-time setup requires authentication
+./kiwi-cli wallet add -n 100 -t EVM --provider google
+
+# System will prompt for Google OAuth authentication
+# Keys will be stored encrypted in your Google Drive
+```
+
+### 4.7 Address Pool Monitoring
+
+```bash
+# Check pool statistics
+./kiwi-cli wallet stat
+
+# Example output:
+# Total addresses: 1000
+# Available: 850
+# Used: 150
+# Disabled: 0
+# Batches: 5
+```
+
+---
+
 ## System Management
 
 ### Wallet Management
