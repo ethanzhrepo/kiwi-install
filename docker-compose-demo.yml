@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  kiwi-api:
+    image: ghcr.io/ethanzhrepo/kiwi-api:latest
+    container_name: kiwi-api
+    restart: unless-stopped
+    volumes:
+      - ../.config:/app/config:ro
+      - ../.data:/app/data
+    ports:
+      - "${API_PORT:-8080}:${API_PORT:-8080}"
+    env_file:
+      - ../.env
+    environment:
+      - CHAIN_CONFIG_FILE=/app/config/evm_chains.json
+    networks:
+      - kiwi-network
+    depends_on:
+      - kiwi-mysql
+      - kiwi-redis
+
+  kiwi-redis:
+    image: redis:latest
+    container_name: kiwi-redis
+    restart: unless-stopped
+    command: redis-server --requirepass redis123321
+    volumes:
+      - ../.data/redis:/data
+    networks:
+      - kiwi-network
+
+  kiwi-mysql:
+    image: mysql:8.0
+    container_name: kiwi-mysql
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=root123321
+      - MYSQL_DATABASE=kiwi
+    volumes:
+      - ../.data/mysql:/var/lib/mysql
+    networks:
+      - kiwi-network
+
+networks:
+  kiwi-network:
+    driver: bridge

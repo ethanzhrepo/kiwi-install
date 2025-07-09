@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Sepolia",
+    "chainId": 11155111,
+    "symbol": "sepETH",
+    "chainName": "Sepolia",
+    "decimals": 18,
+    "confirmBlock": 12,
+    "confirmTimeDelaySeconds": 600,
+    "confirmThresholdAmountInDecimals": 1000,
+    "rpc": ["wss://ethereum-sepolia-rpc.publicnode.com"],
+    "explorerUrl": "https://sepolia.etherscan.io",
+    "supportsEIP1559": true,
+    "feeStrategy": "auto",
+    "eip1559Config": {
+      "baseFeeMultiplier": 1.5,
+      "priorityFeePercentile": 25,
+      "maxPriorityFeeGwei": 10,
+      "minPriorityFeeGwei": 1
+    },
+    "usdtContracts": [
+      {
+        "address": "0xCaC524BcA292aaade2DF8A05cC58F0a65B1B3bB9",
+        "decimals": 6,
+        "symbol": "PYUSD"
+      }
+    ],
+    "maxGasPrice": "20gwei"
+  }
+] 
+
+

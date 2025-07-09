@@ -1,0 +1,5 @@
+config.yml
+commit.sh
+cli.pub.pem
+sign.pub.pem
+.env
