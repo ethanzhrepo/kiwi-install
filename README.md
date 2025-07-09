@@ -33,8 +33,7 @@ The CLI tool is required for system administration and key management.
 
 ```bash
 # Clone the repository
-git clone https://github.com/ethanzhrepo/kiwi.git
-cd kiwi/cli
+git clone https://github.com/ethanzhrepo/kiwi-cli.git
 
 # Install dependencies
 go mod download
