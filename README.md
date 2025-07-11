@@ -29,11 +29,12 @@ Follow these steps in order to set up a complete Kiwi Payment System:
 
 The CLI tool is required for system administration and key management.
 
-### 1.1 Build and Install CLI
+### 1.1 Build CLI
 
 ```bash
 # Clone the repository
-git clone https://github.com/ethanzhrepo/kiwi-cli.git
+git clone https://github.com/ethanzhrepo/kiwi.git
+cd kiwi/cli
 
 # Install dependencies
 go mod download
@@ -45,16 +46,49 @@ go build -o kiwi-cli
 go install
 ```
 
-### 1.2 Generate RSA Key Pairs
+### 1.2 CLI Setup - Choose Your Method
 
-Before setting up the server, you must generate RSA key pairs for secure communication:
+#### Option A: Automated Setup (Recommended)
+
+Run the interactive setup script to automatically configure the CLI:
 
 ```bash
+# Run the interactive setup script
+./scripts/setup.sh
+```
+
+The setup script will:
+- Create the CLI configuration directory (`~/.kiwi-cli/`)
+- Setup default EVM chain configurations
+- Generate CLI RSA key pair for secure communication
+- Generate Admin RSA key pair for wallet encryption
+- Configure the API endpoint
+
+**Individual Setup Steps:**
+```bash
+# Run specific setup functions if needed
+./scripts/setup.sh setup_cli_rsa      # Generate CLI RSA keys only
+./scripts/setup.sh setup_admin_rsa    # Generate Admin RSA keys only
+./scripts/setup.sh setup_api_endpoint # Configure API endpoint only
+./scripts/setup.sh setup_evm_chains   # Setup EVM chain configs only
+```
+
+#### Option B: Manual Setup
+
+If you prefer manual configuration:
+
+```bash
+# Create CLI configuration directory
+mkdir -p ~/.kiwi-cli
+
 # Generate CLI RSA key pair
 ./kiwi-cli admin generate-cli-rsa
 
 # Generate Admin RSA key pair  
 ./kiwi-cli admin generate-admin-rsa
+
+# Configure API endpoint (after server setup)
+./kiwi-cli config set api https://your-api-server.com
 ```
 
 **Important:** Save the generated public keys - you'll need them for server configuration.
