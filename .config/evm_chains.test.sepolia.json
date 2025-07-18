@@ -25,7 +25,8 @@
         "symbol": "PYUSD"
       }
     ],
-    "maxGasPrice": "20gwei"
+    "maxGasPrice": "20gwei",
+    "eventTimeout": 240
   }
 ] 
 
